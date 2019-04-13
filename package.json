@@ -3,20 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "connected-react-router": "^4.4.1",
-    "react": "^16.5.0",
-    "react-dom": "^16.5.0",
-    "react-redux": "^5.0.7",
+    "connected-react-router": "^4.5.0",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5",
-    "redux": "^4.0.0",
+    "react-scripts": "2.1.8",
+    "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "swagger-client": "^3.8.20"
+    "swagger-client": "^3.8.25"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
