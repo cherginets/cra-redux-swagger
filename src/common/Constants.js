@@ -1,9 +1,10 @@
-let SWAGGER_JSON_URL = '';//url json
+let SWAGGER_JSON_URL = process.env.REACT_APP_SWAGGER_JSON_URL || '';//url json
 
 const CUSTOM_API_SERVER = process.env.NODE_ENV === 'development';
-const CUSTOM_API_HOST = '';//site:port
-const CUSTOM_API_PROTOCOL = '';
-if(CUSTOM_API_SERVER) {
+const CUSTOM_API_HOST = process.env.REACT_APP_CUSTOM_API_HOST || '';//site:port
+const CUSTOM_API_PROTOCOL = process.env.REACT_APP_CUSTOM_API_PROTOCOL || 'http';
+
+if(CUSTOM_API_SERVER && CUSTOM_API_PROTOCOL && CUSTOM_API_HOST && SWAGGER_JSON_URL) {
     SWAGGER_JSON_URL =  `${CUSTOM_API_PROTOCOL}://${CUSTOM_API_HOST}${SWAGGER_JSON_URL}`;
 }
 

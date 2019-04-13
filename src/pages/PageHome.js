@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import {bindActionCreators} from 'redux'
-import {tmp_count_plus} from '../common/Actions'
+import {tmp_count_plus} from '../modules/counter'
+import Api from "../common/Api";
 
 class PageHome extends Component {
     constructor(props) {
@@ -15,15 +16,16 @@ class PageHome extends Component {
             <div className="container">
                 page home <Link to={"/test"}>go to page test</Link>
                 <button onClick={this.props.tmp_count_plus}>count++</button>
+                <button onClick={() => Api.getClaims().then((claims) => {console.log('claims', claims);})}>do query</button>
                 <br/>
-                count = {this.props.global.count}
+                count = {this.props.count}
             </div>
         );
     }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    global: state.global,
+    count: state.counter.count,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

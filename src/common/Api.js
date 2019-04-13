@@ -1,21 +1,37 @@
-import * as CONSTANTS from "./Constants";
+import {CUSTOM_API_HOST, CUSTOM_API_SERVER, SWAGGER_JSON_URL} from "./Constants";
 
-export const init_client = (callback) => {
-    callback();
-    return false;
+class Api {
+    client = false;
+    static init = () => new Promise(resolve => {
+        if(!SWAGGER_JSON_URL) resolve();
 
-    const Swagger = require('swagger-client');
-    new Swagger({
-        debug: false,
-        url: CONSTANTS.SWAGGER_JSON_URL
-    }).then(client => {
-        if(CONSTANTS.CUSTOM_API_SERVER) {
-            client.spec.host = CONSTANTS.CUSTOM_API_HOST;
-        }
+        const Swagger = require('swagger-client');
+        new Swagger({
+            debug: false,
+            url: SWAGGER_JSON_URL
+        })
+            .then(client => {
+                if (CUSTOM_API_SERVER) client.spec.host = CUSTOM_API_HOST;
+                window.client = client;
+                window.api = client.apis;
 
-        window.client = client;
-        console.info('client', client);
+                console.info('client', client);
+                console.info('api', window.api);
 
-        callback();
+                resolve();
+            });
     });
-};
+
+    static getClaims = () => new Promise((resolve, reject) => {
+        window.api.claims.getClaims()
+            .then(result => resolve(result.obj))
+            .catch(error => console.error(error))
+    });
+    static addPlates = (claim_id = false) => new Promise((resolve, reject) => {
+        window.api.claims.addPlates({claim_id})
+            .then(result => resolve(result.obj))
+            .catch(error => console.error(error))
+    })
+}
+
+export default Api;

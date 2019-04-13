@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {tmp_count_plus} from '../common/Actions'
+import {tmp_count_plus} from '../modules/counter'
 import {bindActionCreators} from 'redux'
 
 class PageTest extends Component {
@@ -16,14 +16,14 @@ class PageTest extends Component {
                 page test <Link to={"/"}>go to page home</Link>
                 <button onClick={this.props.tmp_count_plus}>count++</button>
                 <br/>
-                count = {this.props.global.count}
+                count = {this.props.count}
             </div>
         );
     }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    global: state.global,
+    count: state.counter.count,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
