@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
-import global from './global'
+import {counter} from './counter'
+import {api_client} from './api_client'
 
 export default combineReducers({
-    global,
+    counter,
+    api_client,
 })
