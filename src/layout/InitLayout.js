@@ -1,7 +1,10 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom'
-import Loading from "../common/components/Loading";
-import Error from "../common/components/Error";
+import {bindActionCreators} from "redux"
+import {connect} from 'react-redux'
+
+import Loading from "src/common/components/Loading";
+import Error from "src/common/components/Error";
 
 class InitLayout extends React.Component {
     constructor(props) {
@@ -13,11 +16,18 @@ class InitLayout extends React.Component {
 
     componentDidMount() {
         // Здесь например проверяется авторизация
-        this.setState({loading: true}, () => {
-            setTimeout(() => {
-                this.setState({loading: false})
-            }, 500);
-        });
+        const authorized = this.props.authorized;
+
+        if(authorized) {
+            this.setState({loading: true}, () => {
+                setTimeout(() => {
+                    this.setState({loading: false})
+                }, 500);
+            });
+        } else {
+            this.props.history.push("/login");
+        }
+
     }
 
     render() {
@@ -28,4 +38,10 @@ class InitLayout extends React.Component {
     }
 }
 
-export default withRouter(InitLayout)
+export const mapStateToProps = (state, ownProps) => ({
+    authorized: state.global.authorized,
+});
+
+export default connect(
+    mapStateToProps,
+)(withRouter(InitLayout))

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import {bindActionCreators} from 'redux'
-import {tmp_count_plus} from '../modules/counter'
 import Api from "../common/Api";
 
 class PageHome extends Component {
@@ -25,11 +24,10 @@ class PageHome extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    count: state.counter.count,
+    count: state.global.count,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    tmp_count_plus,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PageHome))
