@@ -3,10 +3,11 @@ import {withRouter} from 'react-router-dom'
 import {bindActionCreators} from "redux"
 import {connect} from 'react-redux'
 
+import {permanent_clear} from 'src/modules/permanent';
 import Loading from "src/common/components/Loading";
 import Error from "src/common/components/Error";
 
-class InitLayout extends React.Component {
+class LoginLayout extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,19 +16,9 @@ class InitLayout extends React.Component {
     }
 
     componentDidMount() {
-        // Здесь например проверяется авторизация
-        const authorized = this.props.authorized;
-
-        if(authorized) {
-            this.setState({loading: true}, () => {
-                setTimeout(() => {
-                    this.setState({loading: false})
-                }, 500);
-            });
-        } else {
-            this.props.history.push("/login");
-        }
-
+        // TODO: Здесь очищаются все рабочие куки. Возврат к состоянию - "Зашёл впервые"
+        this.props.permanent_clear();
+        this.setState({loading: false})
     }
 
     render() {
@@ -38,10 +29,17 @@ class InitLayout extends React.Component {
     }
 }
 
+
+
 export const mapStateToProps = (state, ownProps) => ({
-    authorized: state.global.authorized,
+    token: state.permanent.token,
 });
+
+export const mapDispatchToProps = dispatch => bindActionCreators({
+    permanent_clear,
+}, dispatch);
 
 export default connect(
     mapStateToProps,
-)(withRouter(InitLayout))
+    mapDispatchToProps,
+)(withRouter(LoginLayout))

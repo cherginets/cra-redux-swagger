@@ -1,26 +1,27 @@
-export const TMP_COUNT_PLUS = 'TMP_COUNT_PLUS';
+export const PERMANENT_SET_STATE = 'PERMANENT_SET_STATE';
 
 const initialState = {
+    token: false,
     count: 0,
 };
 
 export const permanent = (state = initialState, action) => {
     switch (action.type) {
-        case TMP_COUNT_PLUS:
+        case PERMANENT_SET_STATE:
             return {
                 ...state,
-                count: state.count + action.value
+                ...action.state || {},
             };
         default:
             return state
     }
 };
 
-export function tmp_count_plus() {
+export function permanent_clear() {
     return (dispatch, getStore) => {
         dispatch({
-            type: TMP_COUNT_PLUS,
-            value: 1,
+            type: PERMANENT_SET_STATE,
+            state: initialState,
         });
     }
 }

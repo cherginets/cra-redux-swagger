@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import {bindActionCreators} from 'redux'
 import Page from "../common/components/Page";
+import {GLOBAL_SET_STATE} from "../modules/global";
+import AuthService from "../services/Auth/AuthService";
 
 class PageLogin extends Component {
     constructor(props) {
@@ -15,6 +17,7 @@ class PageLogin extends Component {
         this.login = this.login.bind(this);
     }
     login() {
+        AuthService.login(1, 2);
         this.props.history.push("/");
     }
     render() {
@@ -40,6 +43,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
+    set_authorized: () => dispatch({type: GLOBAL_SET_STATE, state: {authorized: true}}),
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PageLogin))

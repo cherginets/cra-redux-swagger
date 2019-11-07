@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import {bindActionCreators} from 'redux'
 import Api from "../common/Api";
+import Page from "../common/components/Page";
 
 class PageHome extends Component {
     constructor(props) {
@@ -12,13 +13,13 @@ class PageHome extends Component {
 
     render() {
         return (
-            <div className="container">
+            <Page title={"Home"}>
                 page home <Link to={"/test"}>go to page test</Link>
                 <button onClick={this.props.tmp_count_plus}>count++</button>
                 <button onClick={() => Api.getClaims().then((claims) => {console.log('claims', claims);})}>do query</button>
                 <br/>
                 count = {this.props.count}
-            </div>
+            </Page>
         );
     }
 }

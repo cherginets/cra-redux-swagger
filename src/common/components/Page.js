@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Helmet} from 'react-helmet';
+import {Helmet, HelmetProvider} from 'react-helmet-async';
+import {BrowserRouter} from "react-router-dom";
 
 class Page extends React.Component {
     render() {
@@ -9,12 +10,15 @@ class Page extends React.Component {
 
         if (className) classNames.push(className);
 
-        return <div className={classNames.join(" ")}>
-            <Helmet>
-                <title>{title}</title>
-            </Helmet>
-            {children}
-        </div>;
+        console.log('title', title);
+        return <HelmetProvider>
+            <div className={classNames.join(" ")}>
+                <Helmet>
+                    <title>{title}</title>
+                </Helmet>
+                {children}
+            </div>
+        </HelmetProvider>;
     }
 }
 
