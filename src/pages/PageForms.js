@@ -14,7 +14,7 @@ class PageForms extends Component {
     render() {
         return (
             <Page className="container login-container" title={"Forms examples"}>
-                <h1>Samples</h1>
+                <h1>Forms examples</h1>
                 <pre>src/pages/PageForms.js</pre>
                 {this.renderForm1()}
             </Page>

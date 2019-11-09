@@ -3,6 +3,7 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Form from "../forms/Form";
+import Page from "../common/components/Page";
 
 class PageSamples extends Component {
     constructor(props) {
@@ -12,10 +13,10 @@ class PageSamples extends Component {
 
     render() {
         return (
-            <div className="container login-container">
+            <Page className="container login-container" title={"Samples"}>
                 <h1>Samples</h1>
                 <pre>>> todo: modal</pre>
-            </div>
+            </Page>
         );
     }
 }
