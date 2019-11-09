@@ -15,6 +15,9 @@ class PageTables extends Component {
             <Page className="container" title={"Tables examples"}>
                 <h1>Forms examples</h1>
                 <pre>src/pages/PageTables.js</pre>
+                <pre>>> todo: Table (на базе react-table)</pre>
+                <pre>>> todo: sorting</pre>
+                <pre>>> todo: pagination</pre>
                 {this.renderTable1()}
             </Page>
         );

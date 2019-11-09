@@ -19,12 +19,14 @@ class PageHome extends Component {
                 <p>some info
                     <br/>
                     <br/>
-                    <button className={"btn btn-primary"}
-                        onClick={() => this.setState({throw_err: true})}
-                    >Throw JS error</button>
+                    <Link to='/' onClick={(e) => {
+                        e.preventDefault();
+                        this.setState({throw_err: true})
+                    }}
+                    >Throw JS error</Link>
                     <br/>
                     <br/>
-                    <Link to={"/404"}>404</Link>
+                    <Link to={"/ololo/some/unknown/page"}>To 404 page</Link>
                 </p>
                 {this.state.throw_err && undefined.map()}
             </Page>
@@ -36,7 +38,6 @@ const mapStateToProps = (state, ownProps) => ({
     count: state.global.count,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PageHome))

@@ -171,7 +171,7 @@ Form.Fields = class extends React.Component {
                 }
                 // endregion
 
-                // region Указание валидации для предопределенных типов полей
+                // region Валидация для предопределенных типов полей
                 // https://github.com/christianalfoni/formsy-react/blob/master/API.md#validators
                 let validations = Helper.copy_obj(field.validations || {}),
                     validationErrors = {
@@ -185,10 +185,10 @@ Form.Fields = class extends React.Component {
                         params.type = "text"; // Что бы браузерная валидация не мешалась
                         validations.isEmail = 'isTrue';
                         break;
+                    default:
+                        break;
                 }
-
                 // endregion
-
 
                 return <Component
                     key={key}
