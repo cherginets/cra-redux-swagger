@@ -28,7 +28,7 @@ class FBase extends React.Component {
     }
 
     render() {
-        return <div className={"d-flex flex-column pb-2"}>
+        return <div className={"d-flex flex-column pb-3"}>
             {this.renderLabel()}
             {this.renderField()}
             {this.renderValidation()}

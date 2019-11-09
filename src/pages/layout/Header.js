@@ -6,8 +6,7 @@ class Header extends React.Component {
         return <div className={"container d-flex justify-content-around p-3 mb-2"}>
             <Link to={"/"}>Home</Link>
             <Link to={"/samples"}>Samples</Link>
-            <Link to={"/test"}>Test</Link>
-            <Link to={"/404"}>404</Link>
+            <Link to={"/forms"}>Forms</Link>
             <Link to={"/login"} >Logout</Link>
         </div>;
     }

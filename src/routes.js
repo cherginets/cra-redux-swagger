@@ -9,11 +9,11 @@ import InitLayout from "src/pages/layout/InitLayout";
 import LoginLayout from "src/pages/layout/LoginLayout";
 
 import PageLogin from 'src/pages/PageLogin';
-import PageTest from 'src/pages/PageTest';
 import PageSamples from 'src/pages/PageSamples';
 import PageHome from 'src/pages/PageHome';
 import Page404 from 'src/pages/Page404';
 import {persistor} from "./persistor";
+import PageForms from "./pages/PageForms";
 
 const Routes = <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
@@ -25,7 +25,7 @@ const Routes = <Provider store={store}>
                 {/* Рабочий интерфейс */}
                 <AppRoute layout={InitLayout} exact path={"/"} component={PageHome}/>
                 <AppRoute layout={InitLayout} exact path={"/samples"} component={PageSamples}/>
-                <AppRoute layout={InitLayout} exact path={"/test"} component={PageTest}/>
+                <AppRoute layout={InitLayout} exact path={"/forms"} component={PageForms}/>
 
                 <AppRoute layout={InitLayout} path={"*"} component={Page404}/>
             </Switch>

@@ -1,14 +1,15 @@
 import React from 'react';
 import Formsy from 'formsy-react';
 import PropTypes from 'prop-types';
-import FInput from "./FInput";
-import FNumber from "./FNumber";
-import FCheckbox from "./FCheckbox";
-import FTextarea from "./FTextarea";
-import FSelect from "./FSelect";
+import FInput from "./components/FInput";
+import FNumber from "./components/FNumber";
+import FCheckbox from "./components/FCheckbox";
+import FTextarea from "./components/FTextarea";
+import FSelect from "./components/FSelect";
 import Helper from "../common/Helper";
-import FDate from "./FDate";
+import FDate from "./components/FDate";
 import {DEFAULT_MOMENT_DATE_FORMAT, DEFAULT_MOMENT_DATETIME_FORMAT} from "../common/constants/defaults";
+import FEditor from "./components/FEditor";
 
 const FormContext = React.createContext(
     {current: {}}
@@ -59,6 +60,9 @@ class Form extends React.Component {
                 case "checkbox":
                     if (!value && value !== false) {value = map[name].nullValue; break;}
                     value = Boolean(value);
+                    break;
+                case "editor":
+                    value = Helper.is_object(value) ? value.value : value;
                     break;
                 default: break;
             }
@@ -117,7 +121,27 @@ Form.Fields = class extends React.Component {
                 if (hidden) return false;
                 // endregion
 
+                // region Подготовка полей специфичных отдельным типам
                 switch (field.type) {
+                    case "textarea":
+                        if (field.nullValue === undefined) field.nullValue = "";
+                        Component = FTextarea;
+                        break;
+                    case "string":
+                        if (field.nullValue === undefined) field.nullValue = "";
+                        break;
+                    case "number":
+                        if (field.nullValue === undefined) field.nullValue = 0;
+                        Component = FNumber;
+                        break;
+                    case "select":
+                        Component = FSelect;
+                        field.options = field.options || [];
+                        field.options_map = Helper.create_map(field.options, 'value');
+                        break;
+                    case "checkbox":
+                        Component = FCheckbox;
+                        break;
                     case "date":
                         Component = FDate;
                         field.format = DEFAULT_MOMENT_DATE_FORMAT;
@@ -126,26 +150,13 @@ Form.Fields = class extends React.Component {
                         Component = FDate;
                         field.format = DEFAULT_MOMENT_DATETIME_FORMAT;
                         break;
-                    case "select":
-                        Component = FSelect;
-                        field.options = field.options || [];
-                        field.options_map = Helper.create_map(field.options, 'value');
-                    break;
-                    case "checkbox":
-                        Component = FCheckbox;
-                        break;
-                    case "number":
-                        if (field.nullValue === undefined) field.nullValue = 0;
-                        Component = FNumber;
-                        break;
-                    case "textarea":
-                        Component = FTextarea;
-                    case "string":
-                        if (field.nullValue === undefined) field.nullValue = "";
+                    case "editor":
+                        Component = FEditor;
                         break;
                     default: break;
                 }
                 if (field.nullValue === undefined) field.nullValue = null;
+                // endregion
 
                 return <Component key={key} {...params} />;
             });

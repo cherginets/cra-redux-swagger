@@ -1,7 +1,6 @@
 import {withFormsy} from "formsy-react";
-import FBase from "src/forms/FBase";
+import FBase from "./FBase";
 import React from "react";
-import PropTypes from "prop-types";
 import Select from "react-select";
 
 class FSelect extends FBase {
@@ -36,6 +35,7 @@ class FSelect extends FBase {
 FSelect.defaultProps = {
     ...FBase.defaultProps,
     options: [],
+    options_map: {},
 };
 
 FSelect.propTypes = {

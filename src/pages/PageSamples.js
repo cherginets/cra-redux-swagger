@@ -14,50 +14,9 @@ class PageSamples extends Component {
         return (
             <div className="container login-container">
                 <h1>Samples</h1>
-                <pre>src/pages/PageSamples.js</pre>
-                {this.renderForm1()}
+                <pre>>> todo: modal</pre>
             </div>
         );
-    }
-    renderForm1 = () => {
-        return <Form
-            className="d-flex flex-column mb-5"
-            onValidSubmit={(form1_response)  => this.setState({form1_response: JSON.stringify(form1_response, null, 2), form1_date: (+ new Date())})}
-        >
-            <h3>Form1</h3>
-            <p>Отображены возможные типы полей</p>
-            <div className={"row"}>
-                <div className={"col-6"}>
-                    <Form.Fields fields={[
-                        {type: "number", label: "Type - 'number'", name: "number", placeholder: "0", value: 17,},
-                        {type: "string", label: "Type - 'string'", name: "string", placeholder: "some string..."},
-                        {type: "select", label: "Type - 'select'", name: "select", placeholder: "select",
-                            options: [
-                                {label: "First (number)", value: 1},
-                                {label: "Second (string)", value: "2"},
-                            ],
-                            isClearable: true,
-                        },
-                        {type: "date", label: "Type - 'date'", name: "date", placeholder: "some date", value: "09.11.2019",},
-                        {type: "datetime", label: "Type - 'datetime'", name: "datetime", placeholder: "some datetime",},
-                        {type: "checkbox", label: "Type - 'checkbox'", name: "checkbox"},
-                        {type: "textarea", label: "Type - 'textarea'", name: "textarea", placeholder: "some text...", value: "text"},
-
-                        // select
-                        // select multi
-                        // select radio
-                        // date
-                        // datetime
-                    ]} />
-                    <button>submit</button>
-                </div>
-                <div className={"col-6"}>
-                    <pre>{this.state.form1_date}
-                    <br/>
-                    {this.state.form1_response}</pre>
-                </div>
-            </div>
-        </Form>
     }
 }
 

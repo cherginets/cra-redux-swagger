@@ -1,5 +1,5 @@
 import {withFormsy} from "formsy-react";
-import FBase from "src/forms/FBase";
+import FBase from "./FBase";
 import React from "react";
 import PropTypes from "prop-types";
 
