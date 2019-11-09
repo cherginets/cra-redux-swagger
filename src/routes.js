@@ -38,15 +38,15 @@ export default Routes;
 // Небольшой костыль что бы избавиться от надоедливого варнинга
 // https://github.com/nfl/react-helmet/issues/426#issuecomment-547583689
 if (process.env.NODE_ENV === 'development') {
-    // Helmet uses those functions internally and the warnings are annoying
     const ignorePatterns = [
-        // 'Warning: componentWillMount',
+        'Warning: componentWillMount',
+        'Warning: componentWillReceiveProps',
+        'Warning: componentWillUpdate ',
         'SideEffect(NullComponent)',
     ];
 
     const { warn } = console;
 
-    // eslint-disable-next-line no-console,func-names
     console.warn = function (...labels) {
         if (ignorePatterns.every((i) => !labels[0].includes(i))) {
             warn(...labels);
