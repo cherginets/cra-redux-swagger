@@ -1,5 +1,9 @@
+/**
+ * https://github.com/christianalfoni/formsy-react/blob/master/API.md - дока Formsy
+ */
 import React from 'react';
 import Formsy from 'formsy-react';
+import * as FormsyLib from 'formsy-react/lib/';
 import PropTypes from 'prop-types';
 import FInput from "./components/FInput";
 import FNumber from "./components/FNumber";
@@ -14,6 +18,11 @@ import FEditor from "./components/FEditor";
 const FormContext = React.createContext(
     {current: {}}
 );
+
+FormsyLib.addValidationRule('regexp', function (values, value, pattern, ...args) {
+    const regexp = new RegExp(pattern);
+    return regexp.test(value);
+});
 
 class Form extends React.Component {
     static defaultProps = {
@@ -106,10 +115,8 @@ Form.Fields = class extends React.Component {
             return fields.map((field, key) => {
                 field.type = field.type || "string";
                 field._start_value = field.value;
-                map[field.name] = field;
 
-                let params = field,
-                    Component = FInput;
+                let params = Helper.copy_obj(field);
 
                 // region Обработка hidden/show
                 let {hidden, show} = field;
@@ -123,42 +130,73 @@ Form.Fields = class extends React.Component {
 
                 // region Подготовка полей специфичных отдельным типам
                 switch (field.type) {
-                    case "textarea":
-                        if (field.nullValue === undefined) field.nullValue = "";
-                        Component = FTextarea;
-                        break;
                     case "string":
+                    case "textarea":
+                    case "password":
+                    case "email":
+                    case "editor":
                         if (field.nullValue === undefined) field.nullValue = "";
                         break;
                     case "number":
                         if (field.nullValue === undefined) field.nullValue = 0;
-                        Component = FNumber;
                         break;
                     case "select":
-                        Component = FSelect;
                         field.options = field.options || [];
                         field.options_map = Helper.create_map(field.options, 'value');
                         break;
-                    case "checkbox":
-                        Component = FCheckbox;
-                        break;
                     case "date":
-                        Component = FDate;
                         field.format = DEFAULT_MOMENT_DATE_FORMAT;
                         break;
                     case "datetime":
-                        Component = FDate;
                         field.format = DEFAULT_MOMENT_DATETIME_FORMAT;
-                        break;
-                    case "editor":
-                        Component = FEditor;
                         break;
                     default: break;
                 }
                 if (field.nullValue === undefined) field.nullValue = null;
                 // endregion
 
-                return <Component key={key} {...params} />;
+                map[field.name] = field;
+
+                // region Указание компонентов специфичных отдельным типам
+                let Component;
+                switch (field.type) {
+                    case "textarea": Component = FTextarea; break;
+                    case "number":   Component = FNumber; break;
+                    case "select":   Component = FSelect; break;
+                    case "checkbox": Component = FCheckbox; break;
+                    case "date":     Component = FDate; break;
+                    case "datetime": Component = FDate; break;
+                    case "editor":   Component = FEditor; break;
+                    default:         Component = FInput; break;
+                }
+                // endregion
+
+                // region Указание валидации для предопределенных типов полей
+                // https://github.com/christianalfoni/formsy-react/blob/master/API.md#validators
+                let validations = Helper.copy_obj(field.validations || {}),
+                    validationErrors = {
+                        isEmail: "Некорректный емейл",
+                        ...Helper.copy_obj(field.validationErrors || {}),
+                    },
+                    validationError = field.validationError || "Ошибка!";
+
+                switch (field.type) {
+                    case "email":
+                        params.type = "text"; // Что бы браузерная валидация не мешалась
+                        validations.isEmail = 'isTrue';
+                        break;
+                }
+
+                // endregion
+
+
+                return <Component
+                    key={key}
+                    {...params}
+                    validations={validations}
+                    validationErrors={validationErrors}
+                    validationError={validationError}
+                />;
             });
         }}</FormContext.Consumer>
     }

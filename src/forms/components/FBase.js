@@ -1,3 +1,6 @@
+/**
+ * https://github.com/christianalfoni/formsy-react/blob/master/API.md - дока Formsy
+ */
 import React from 'react';
 import Formsy from 'formsy-react';
 import PropTypes from 'prop-types';
@@ -8,13 +11,19 @@ class FBase extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            help_show: false,
+        };
 
         this.changeValue = this.changeValue.bind(this);
         this.getValue = this.getValue.bind(this);
+
+        this.isRequired = this.isRequired.bind(this);
+
+        this.renderHelp = this.renderHelp.bind(this);
         this.renderLabel = this.renderLabel.bind(this);
         this.renderField = this.renderField.bind(this);
-        this.renderValidation = this.renderValidation.bind(this);
+        this.renderError = this.renderError.bind(this);
     }
 
     getValue() {
@@ -27,17 +36,32 @@ class FBase extends React.Component {
         this.props.onChange(value);
     }
 
+    isRequired() {
+        return this.props.isRequired();
+    }
+
     render() {
         return <div className={"d-flex flex-column pb-3"}>
             {this.renderLabel()}
+            {this.renderHelp()}
             {this.renderField()}
-            {this.renderValidation()}
+            {this.renderError()}
         </div>
     }
     renderLabel() {
         const {label} = this.props;
         if (!label) return false;
-        return <label className={"pl-2"}>{label}</label>
+        return <label className={"pl-2"} style={this.props.help ? {textDecoration: "underline", cursor: "pointer"} : {}} onClick={() => {
+            this.setState({help_show: !this.state.help_show})
+        }}>
+            {this.isRequired() && <span style={{color: "red"}}>* </span>}
+            {label}
+        </label>
+    }
+    renderHelp() {
+        if (!this.props.help || !this.state.help_show) return false;
+
+        return  <div style={{color: 'gray'}} className={"mb-1"}>{this.props.help}</div>
     }
     renderField() {
         return <input
@@ -49,12 +73,17 @@ class FBase extends React.Component {
             autoComplete="off"
         />;
     }
-    renderValidation() {
+    renderError() {
         let errorMessage = !this.props.isValid() ? this.props.getErrorMessage() : false;
-        // console.log('this.props.showRequired()', this.props.showRequired());
-        if (this.props.showRequired()) errorMessage = true;
+        if (this.props.showRequired()) errorMessage = `Поле '${this.props.label}' обязательно к заполнению!`;
 
-        return <div style={{color: "red"}}>{errorMessage}</div>
+        if (!errorMessage || !this.props.isFormSubmitted()) return false;
+
+        if(this.props.name === 'email') {
+            console.log('this', this);
+        }
+
+        return <div style={{color: "red", fontSize: 12}}>{errorMessage}</div>
     }
 }
 

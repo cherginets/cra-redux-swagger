@@ -138,18 +138,19 @@ export default class Helper {
 
     /**
      * Копирует объект. Костылисто, через JSON. Todo: оптимизировать
-     * @param obj
+     * @param o
+     * @return Object
      */
     static copy_obj(o) {
-        const a = JSON.stringify(o);
-
-        return JSON.parse(a);
-        // TODO: Альтернативная реализация, возможно более быстрая (и сможет сжирать функции). Проверить перед внедрением
-        // let result = Object.assign({}, obj);
-        // Object.keys(result).map(key => {
-        //     if(typeof result[key] === 'object') result[key] = Helper.copy_obj(obj[key])
-        // })
-        // return result;
+        if (Helper.is_object(o)) {
+            return Object.assign({},
+                Object.keys(o).reduce((acc, key) => ({
+                        ...acc,
+                        [key]: Helper.copy_obj(o[key]),
+                    }), {})
+            );
+        }
+        return o;
     }
 
     static create_map(arr, key, key2 = null) {
