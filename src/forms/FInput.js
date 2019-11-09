@@ -1,18 +1,7 @@
 import {withFormsy} from "formsy-react";
-import FBase from "./FBase";
-import Form from "./Form";
+import FBase from "src/forms/FBase";
 
-class FInput extends FBase {
-    getValue() {
-        return this.props.getValue() || "";
-    }
-    changeValue(event) {
-        const value = event.target.value || "";
-
-        this.props.setValue(value);
-        this.props.onChange(value);
-    }
-}
+class FInput extends FBase {}
 
 FInput.defaultProps = {
     ...FBase.defaultProps,
@@ -21,6 +10,5 @@ FInput.defaultProps = {
 FInput.propTypes = {
     ...FBase.propTypes,
 };
-
 
 export default withFormsy(FInput);

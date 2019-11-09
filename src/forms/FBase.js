@@ -12,38 +12,22 @@ class FBase extends React.Component {
 
         this.changeValue = this.changeValue.bind(this);
         this.getValue = this.getValue.bind(this);
-        this.isHidden = this.isHidden.bind(this);
         this.renderLabel = this.renderLabel.bind(this);
         this.renderField = this.renderField.bind(this);
         this.renderValidation = this.renderValidation.bind(this);
     }
 
-    changeValue(value) {
+    getValue() {
+        return this.props.getValue() || "";
+    }
+    changeValue(event) {
+        let value = event.target.value || "";
+
         this.props.setValue(value);
         this.props.onChange(value);
     }
 
-    getValue() {
-        return this.props.getValue();
-    }
-
-    isHidden() {
-        return  false;
-        const form = this.props.form.current;
-        if (!form) return false;
-
-        const values = form.getModel(),
-            {hidden} = this.props;
-
-        if(typeof hidden === 'function') return hidden(values);
-        else return !!hidden;
-    }
-
     render() {
-        const isHidden = this.isHidden();
-
-        if (isHidden) return false;
-
         return <div className={"d-flex flex-column pb-2"}>
             {this.renderLabel()}
             {this.renderField()}
@@ -58,7 +42,7 @@ class FBase extends React.Component {
     renderField() {
         return <input
             name={this.props.name}
-            // value={this.getValue()}
+            value={this.getValue()}
             onChange={this.changeValue}
             type={this.props.type || 'text'}
             placeholder={this.props.placeholder}
@@ -74,8 +58,8 @@ class FBase extends React.Component {
 }
 
 FBase.defaultProps = {
-    onChange: value => {
-    },
+    label: "",
+    onChange: value => {},
 };
 
 FBase.propTypes = {
