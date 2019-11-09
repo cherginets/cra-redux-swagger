@@ -1,0 +1,27 @@
+.fs-modal {
+  &__overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    background: rgba(255, 255, 255, 0.8);
+  }
+  &__window {
+    background: white;
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 20px;
+  }
+  &__header {
+    font-size: 24px;
+  }
+  &__footer {
+    border-top: 1px solid black;
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+}

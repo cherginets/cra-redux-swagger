@@ -2,7 +2,7 @@ import React from "react";
 import {withFormsy} from "formsy-react";
 import RichTextEditor from 'react-rte';
 import {COMPONENT_EDITOR_DEFAULT_CONFIG} from "src/common/constants/components";
-import FBase from "./FBase";
+import FBase from "src/forms/components/FBase";
 
 class FEditor extends FBase {
     changeValue(value) {

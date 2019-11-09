@@ -93,6 +93,7 @@ FBase.defaultProps = {
 };
 
 FBase.propTypes = {
+    className: PropTypes.string,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     hidden: PropTypes.oneOfType([PropTypes.any, PropTypes.func]),

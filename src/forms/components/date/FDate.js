@@ -1,9 +1,9 @@
-import {withFormsy} from "formsy-react";
-import FBase from "./FBase";
 import React from "react";
 import moment from "moment";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
+import {withFormsy} from "formsy-react";
+import FBase from "src/forms/components/FBase";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./FDate.scss";

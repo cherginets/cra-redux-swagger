@@ -1,5 +1,5 @@
 import {withFormsy} from "formsy-react";
-import FBase from "./FBase";
+import FBase from "src/forms/components/FBase";
 
 class FInput extends FBase {}
 

@@ -1,7 +1,7 @@
-import {withFormsy} from "formsy-react";
-import FBase from "./FBase";
 import React from "react";
 import Select from "react-select";
+import {withFormsy} from "formsy-react";
+import FBase from "src/forms/components/FBase";
 
 class FSelect extends FBase {
     getValue() {

@@ -9,9 +9,9 @@ import FInput from "./components/FInput";
 import FNumber from "./components/FNumber";
 import FCheckbox from "./components/FCheckbox";
 import FTextarea from "./components/FTextarea";
-import FSelect from "./components/FSelect";
+import FSelect from "./components/select/FSelect";
 import Helper from "../common/Helper";
-import FDate from "./components/FDate";
+import FDate from "./components/date/FDate";
 import {DEFAULT_MOMENT_DATE_FORMAT, DEFAULT_MOMENT_DATETIME_FORMAT} from "../common/constants/defaults";
 import FEditor from "./components/FEditor";
 
@@ -109,7 +109,7 @@ Form.Fields = class extends React.Component {
             form = form.current;
             if (!form) return false;
 
-            const {fields} = this.props,
+            let fields = this.props.fields || this.props.children,
                 values = form.getModel();
 
             return fields.map((field, key) => {

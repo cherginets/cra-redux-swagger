@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux'
 import Page from "../common/components/Page";
 import {GLOBAL_SET_STATE} from "../modules/global";
 import AuthService from "../services/Auth/AuthService";
+import Form from "../forms/Form";
 
 class PageLogin extends Component {
     constructor(props) {
@@ -16,24 +17,23 @@ class PageLogin extends Component {
 
         this.login = this.login.bind(this);
     }
-    login() {
-        AuthService.login(1, 2);
+    login(fields) {
+        console.log('fields', fields);
+        AuthService.login(fields.email, fields.password);
         this.props.history.push("/");
     }
     render() {
         return <Page title={"Login"}>
             <div className="container">
-                <form className={"mt-2"}>
-                    <div className="form-group">
-                        <label>Email address</label>
-                        <input type="email" className="form-control" placeholder="name@example.com" />
-                    </div>
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input type="password" className="form-control" placeholder="********" />
-                    </div>
-                    <button className="btn btn-primary" onClick={this.login}>Login</button>
-                </form>
+                <Form name={"test"} className={"mt-2"} onValidSubmit={this.login}>
+                    <Form.Fields>
+                        {[
+                            {name: "email", label: "Email", placeholder: "name@example.com"},
+                            {name: "password", label: "Password", placeholder: "********"},
+                        ]}
+                    </Form.Fields>
+                    <button className="btn btn-primary">Login</button>
+                </Form>
             </div>
         </Page>;
     }
