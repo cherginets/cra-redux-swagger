@@ -11,7 +11,6 @@ class PageSamples extends Component {
         super(props);
         this.state = {};
 
-        this.form = React.createRef();
         this.submit = this.submit.bind(this);
     }
 
@@ -32,17 +31,16 @@ class PageSamples extends Component {
                 <h1>Samples</h1>
                 <h2>Form</h2>
                 <p>Form with formsy</p>
-                <Formsy
-                    className="d-flex flex-column"
-                    style={{width: 400}}
-
-                    onValidSubmit={this.submit}
-                    ref={this.form}
+                <Form className="d-flex flex-column"
+                      style={{width: 400}}
+                      onValidSubmit={this.submit}
                 >
-                    <FInput label={"age"} name={"age"} placeholder={"age"} value={0} required form={this.form}/>
-                    <FInput label={"pornosite"} name={"pornosite"} placeholder={"pornosite"} required hidden={(values) => values.age < 18} form={this.form}/>
+                    <Form.Fields fields={[
+                        {type: "text", label: "age", name: "age", placeholder: "age", value: 17},
+                        {type: "text", label: "pornosite", name: "pornosite", placeholder: "pornosite", value: "test"},
+                    ]} />
                     <button>submit</button>
-                </Formsy>
+                </Form>
             </div>
         );
     }

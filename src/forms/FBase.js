@@ -28,6 +28,7 @@ class FBase extends React.Component {
     }
 
     isHidden() {
+        return  false;
         const form = this.props.form.current;
         if (!form) return false;
 

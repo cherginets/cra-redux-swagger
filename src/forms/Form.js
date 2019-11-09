@@ -1,70 +1,46 @@
 import React from 'react';
-
-const FormContext = React.createContext({
-    values: {},
-    getValue: () => {},
-    setValue: () => {},
-});
+import Formsy from 'formsy-react';
+import PropTypes from 'prop-types';
+import FInput from "./FInput";
 
 class Form extends React.Component {
+    static propTypes = Formsy.propTypes;
+
     constructor(props) {
         super(props);
 
-        this.setValue = (name, value) => {
-            this.setState({
-                values: {
-                    ...this.state.values,
-                    [name]: value,
-                }
-            })
-        };
+        this.state = {};
 
-        this.state = {
-            values: {},
-            setValue: this.setValue,
-        };
+        this.form = React.createRef();
     }
 
     render() {
-        console.log('this.props', this.props);
-
-        return <FormContext.Provider value={this.state}>
-            {this.props.children(this.state.values)}
-        </FormContext.Provider>
-    }
-
-    static withForm = (WrappedComponent, selectData) => {
-        return class extends React.Component {
-            constructor(props) {
-                super(props);
-                // this.handleChange = this.handleChange.bind(this);
-                console.log('this', this);
-                this.state = {
-                    // data: selectData(DataSource, props)
-                };
-
-                const formContextValue = React.useContext(FormContext);
-                console.log('formContextValue', formContextValue);
-            }
-
-            componentWillUnmount() {
-                // const formContextValue = React.useContext(FormContext);
-                // console.log('formContextValue', formContextValue);
-            }
-
-            render() {
-                return <FormContext.Consumer>
-                    {(context) => {
-                        console.log('context2', context);
-                        return <WrappedComponent
-                            setValue={(value) => {context.setValue(this.props.name, value)}}
-                            {...this.props}
-                        />
-                    }}
-                </FormContext.Consumer>;
-            }
-        };
+        return <Formsy {...this.props} ref={this.form}>
+            {this.props.children}
+        </Formsy>
     }
 }
+
+Form.Fields = class extends React.Component {
+    render() {
+        const {fields} = this.props;
+        return fields.map(({type, ...field}, key) => {
+           let Component = FInput;
+            switch (type) {
+                case "text":
+                default:
+                    break;
+            }
+
+            return <Component key={key} {...field} />;
+        });
+    }
+};
+
+Form.Fields.propTypes = {
+    fields: PropTypes.arrayOf(PropTypes.shape({
+
+    })),
+};
 
 export default Form;
