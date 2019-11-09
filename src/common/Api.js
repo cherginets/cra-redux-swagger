@@ -1,17 +1,17 @@
-import {CUSTOM_API_HOST, CUSTOM_API_SERVER, SWAGGER_JSON_URL} from "./Constants";
+import {SWAGGER_URL} from "./constants/enviroment";
 
 class Api {
     client = false;
     static init = () => new Promise(resolve => {
-        if(!SWAGGER_JSON_URL) resolve();
+        if(!SWAGGER_URL) resolve();
 
         const Swagger = require('swagger-client');
         new Swagger({
             debug: false,
-            url: SWAGGER_JSON_URL
+            url: SWAGGER_URL
         })
             .then(client => {
-                if (CUSTOM_API_SERVER) client.spec.host = CUSTOM_API_HOST;
+                // if (API_HOST) client.spec.host = API_HOST;
                 window.client = client;
                 window.api = client.apis;
 

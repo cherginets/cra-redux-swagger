@@ -1,24 +1,28 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import {bindActionCreators} from 'redux'
-import Api from "../common/Api";
 import Page from "../common/components/Page";
 
 class PageHome extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            throw_err: false,
+        };
     }
 
     render() {
         return (
-            <Page title={"Home"}>
-                page home <Link to={"/test"}>go to page test</Link>
-                <button onClick={this.props.tmp_count_plus}>count++</button>
-                <button onClick={() => Api.getClaims().then((claims) => {console.log('claims', claims);})}>do query</button>
-                <br/>
-                count = {this.props.count}
+            <Page className={"container"} title={"Home"}>
+                <h1>Home page</h1>
+                <p>some info
+                    <br/>
+                    <button className={"btn btn-primary"}
+                        onClick={() => this.setState({throw_err: true})}
+                    >Throw JS error</button>
+                </p>
+                {this.state.throw_err && undefined.map()}
             </Page>
         );
     }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { withRouter, Link} from 'react-router-dom'
+import Page from "../common/components/Page";
 
 class Page404 extends Component {
     constructor(props) {
@@ -9,9 +10,10 @@ class Page404 extends Component {
 
     render() {
         return (
-            <div className="container">
-                404 <Link to={"/"}>go to page home</Link>
-            </div>
+            <Page className="container" title={"404 Not found"}>
+                <h1>404 Not found</h1>
+                <p><Link to={"/"}>go to home</Link></p>
+            </Page>
         );
     }
 }

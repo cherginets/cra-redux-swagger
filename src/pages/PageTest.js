@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { withRouter, Link} from 'react-router-dom'
+import { withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
@@ -12,10 +12,8 @@ class PageTest extends Component {
     render() {
         return (
             <div className="container login-container">
-                page test <Link to={"/"}>go to page home</Link>
-                <button onClick={this.props.tmp_count_plus}>count++</button>
-                <br/>
-                count = {this.props.count}
+                <h1>Test page</h1>
+                <p>some test info</p>
             </div>
         );
     }

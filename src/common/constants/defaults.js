@@ -1,0 +1,1 @@
+export const DEFAULT_MOMENT_DATE_FORMAT = "DD.MM.YYYY HH:mm:ss";
