@@ -18,11 +18,6 @@ class PageSamples extends Component {
             <Page className="container" title={"Samples"}>
                 <h1>Samples</h1>
                 <pre>src/pages/PageSamples.js</pre>
-
-                <pre>>> todo: modal</pre>
-                <pre>>> todo: alert modal</pre>
-                <pre>>> todo: confirm modal</pre>
-
                 {this.renderModals()}
                 {this.renderNotifications()}
             </Page>

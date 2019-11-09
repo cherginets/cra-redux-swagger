@@ -8,6 +8,7 @@ class ModalManager extends React.Component {
         this.state = {
             show: false,
             content: false,
+            onClose: () => {},
         };
 
         this.alert = this.alert.bind(this);
@@ -26,6 +27,7 @@ class ModalManager extends React.Component {
         return new Promise((resolve) => {
             this.setState({
                 show: true,
+                onClose: resolve,
                 content: <>
                     <Modal.Header>Info modal</Modal.Header>
                     <Modal.Content>{content}</Modal.Content>
@@ -42,7 +44,10 @@ class ModalManager extends React.Component {
     }
     confirm(question) {
         return new Promise((resolve, reject) => {
-            this.setState({show: true, content: <>
+            this.setState({
+                show: true,
+                onClose: reject,
+                content: <>
                     <Modal.Header>Confirm modal</Modal.Header>
                     <Modal.Content>{question}</Modal.Content>
                     <Modal.Footer>
@@ -63,7 +68,8 @@ class ModalManager extends React.Component {
     }
 
     render() {
-        return <Modal show={this.state.show} onClose={() => this.setState({show: false})}>
+        return <Modal show={this.state.show}
+                      onClose={() => this.setState({show: false}, this.state.onClose)}>
             {this.state.content}
         </Modal>
     }
