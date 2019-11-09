@@ -46,6 +46,7 @@ class FBase extends React.Component {
             onChange={this.changeValue}
             type={this.props.type || 'text'}
             placeholder={this.props.placeholder}
+            autoComplete="off"
         />;
     }
     renderValidation() {

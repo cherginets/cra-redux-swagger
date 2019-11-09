@@ -38,8 +38,10 @@ class PageSamples extends Component {
                             ],
                             isClearable: true,
                         },
+                        {type: "date", label: "Type - 'date'", name: "date", placeholder: "some date", value: "09.11.2019",},
+                        {type: "datetime", label: "Type - 'datetime'", name: "datetime", placeholder: "some datetime",},
                         {type: "checkbox", label: "Type - 'checkbox'", name: "checkbox"},
-                        {type: "textarea", label: "Type - 'textarea'", name: "textarea", placeholder: "some text..."},
+                        {type: "textarea", label: "Type - 'textarea'", name: "textarea", placeholder: "some text...", value: "text"},
 
                         // select
                         // select multi
@@ -47,6 +49,7 @@ class PageSamples extends Component {
                         // date
                         // datetime
                     ]} />
+                    <button>submit</button>
                 </div>
                 <div className={"col-6"}>
                     <pre>{this.state.form1_date}
@@ -54,11 +57,6 @@ class PageSamples extends Component {
                     {this.state.form1_response}</pre>
                 </div>
             </div>
-
-            {/*<Form.Fields fields={[*/}
-            {/*    {label: "fio", name: "fio", placeholder: "fio", value: "john doe",},*/}
-            {/*]} />*/}
-            <button>submit</button>
         </Form>
     }
 }

@@ -7,6 +7,8 @@ import FCheckbox from "./FCheckbox";
 import FTextarea from "./FTextarea";
 import FSelect from "./FSelect";
 import Helper from "../common/Helper";
+import FDate from "./FDate";
+import {DEFAULT_MOMENT_DATE_FORMAT, DEFAULT_MOMENT_DATETIME_FORMAT} from "../common/constants/defaults";
 
 const FormContext = React.createContext(
     {current: {}}
@@ -116,6 +118,14 @@ Form.Fields = class extends React.Component {
                 // endregion
 
                 switch (field.type) {
+                    case "date":
+                        Component = FDate;
+                        field.format = DEFAULT_MOMENT_DATE_FORMAT;
+                        break;
+                    case "datetime":
+                        Component = FDate;
+                        field.format = DEFAULT_MOMENT_DATETIME_FORMAT;
+                        break;
                     case "select":
                         Component = FSelect;
                         field.options = field.options || [];
