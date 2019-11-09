@@ -141,14 +141,14 @@ Form.Fields = class extends React.Component {
                         if (field.nullValue === undefined) field.nullValue = 0;
                         break;
                     case "select":
-                        field.options = field.options || [];
-                        field.options_map = Helper.create_map(field.options, 'value');
+                        params.options = field.options || [];
+                        params.options_map = Helper.create_map(field.options, 'value');
                         break;
                     case "date":
-                        field.format = DEFAULT_MOMENT_DATE_FORMAT;
+                        params.format = DEFAULT_MOMENT_DATE_FORMAT;
                         break;
                     case "datetime":
-                        field.format = DEFAULT_MOMENT_DATETIME_FORMAT;
+                        params.format = DEFAULT_MOMENT_DATETIME_FORMAT;
                         break;
                     default: break;
                 }

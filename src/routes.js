@@ -14,6 +14,7 @@ import PageHome from 'src/pages/PageHome';
 import Page404 from 'src/pages/Page404';
 import {persistor} from "./persistor";
 import PageForms from "./pages/PageForms";
+import PageTables from "./pages/PageTables";
 
 const Routes = <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
@@ -24,8 +25,9 @@ const Routes = <Provider store={store}>
 
                 {/* Рабочий интерфейс */}
                 <AppRoute layout={InitLayout} exact path={"/"} component={PageHome}/>
-                <AppRoute layout={InitLayout} exact path={"/samples"} component={PageSamples}/>
                 <AppRoute layout={InitLayout} exact path={"/forms"} component={PageForms}/>
+                <AppRoute layout={InitLayout} exact path={"/tables"} component={PageTables}/>
+                <AppRoute layout={InitLayout} exact path={"/samples"} component={PageSamples}/>
 
                 <AppRoute layout={InitLayout} path={"*"} component={Page404}/>
             </Switch>
