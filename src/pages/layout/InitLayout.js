@@ -6,8 +6,8 @@ import 'react-notifications/lib/notifications.css';
 
 import AuthService from "src/services/Auth/AuthService";
 import Header from "./Header";
-import ErrorBoundary from "src/common/components/ErrorBoundary";
-import ModalManager from "../../managers/ModalManager";
+import ErrorBoundary from "src/components/ErrorBoundary";
+import ModalManager from "src/components/Modal/ModalManager";
 
 class InitLayout extends React.Component {
     render() {

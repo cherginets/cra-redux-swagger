@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import {bindActionCreators} from 'redux'
-import Page from "../common/components/Page";
+import Page from "../components/Page";
 import {GLOBAL_SET_STATE} from "../modules/global";
 import AuthService from "../services/Auth/AuthService";
 import Form from "../forms/Form";

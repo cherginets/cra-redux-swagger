@@ -3,8 +3,8 @@ import {Redirect, withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
 
-import Loading from "src/common/components/Loading";
-import Error from "src/common/components/Error";
+import Loading from "src/components/Loading/Loading";
+import Error from "src/components/Error/Error";
 import store from "src/store";
 import {PERMANENT_SET_STATE} from "src/modules/permanent";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import {withFormsy} from "formsy-react";
 import RichTextEditor from 'react-rte';
-import {COMPONENT_EDITOR_DEFAULT_CONFIG} from "src/common/constants/components";
+import {COMPONENT_EDITOR_DEFAULT_CONFIG} from "src/constants/components";
 import FBase from "src/forms/components/FBase";
 
 class FEditor extends FBase {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from "src/common/components/Modal";
+import Modal from "src/components/Modal/Modal";
 
 class ModalManager extends React.Component {
     constructor(props) {

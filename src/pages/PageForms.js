@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Form from "../forms/Form";
-import Page from "../common/components/Page";
+import Page from "../components/Page";
 
 class PageForms extends Component {
     constructor(props) {

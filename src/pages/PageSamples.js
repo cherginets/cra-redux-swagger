@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import Page from "../common/components/Page";
+import Page from "../components/Page";
 import {n_error, n_info, n_success, n_warning} from "../actions/NotificationActions";
-import Modal from "../common/components/Modal";
+import Modal from "../components/Modal/Modal";
 import {m_alert, m_confirm} from "../actions/ModalActions";
 
 class PageSamples extends Component {

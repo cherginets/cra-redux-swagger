@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { withRouter, Link} from 'react-router-dom'
-import Page from "../common/components/Page";
+import Page from "../components/Page";
 
 class Page404 extends Component {
     constructor(props) {

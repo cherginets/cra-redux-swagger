@@ -1,4 +1,4 @@
-import {SWAGGER_URL} from "./constants/enviroment";
+import {SWAGGER_URL} from "src/constants/enviroment";
 
 class Api {
     client = false;

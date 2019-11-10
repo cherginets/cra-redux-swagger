@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
 import {bindActionCreators} from 'redux'
-import Page from "../common/components/Page";
+import Page from "../components/Page";
 
 class PageHome extends Component {
     constructor(props) {

@@ -12,7 +12,7 @@ import FTextarea from "./components/FTextarea";
 import FSelect from "./components/select/FSelect";
 import Helper from "../common/Helper";
 import FDate from "./components/date/FDate";
-import {DEFAULT_MOMENT_DATE_FORMAT, DEFAULT_MOMENT_DATETIME_FORMAT} from "../common/constants/defaults";
+import {DEFAULT_MOMENT_DATE_FORMAT, DEFAULT_MOMENT_DATETIME_FORMAT} from "src/constants/defaults";
 import FEditor from "./components/FEditor";
 
 const FormContext = React.createContext(

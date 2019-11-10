@@ -9,7 +9,6 @@
 * Swagger
 
 Второстепенный:
-* **react-table** - таблицы
 * **formsy-react** - управление формами
   * **react-select** - выпадающие списки
   * **react-datepicker** - инпуты дат

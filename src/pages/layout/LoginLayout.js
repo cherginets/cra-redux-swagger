@@ -4,8 +4,8 @@ import {bindActionCreators} from "redux"
 import {connect} from 'react-redux'
 
 import {permanent_clear} from 'src/modules/permanent';
-import Loading from "src/common/components/Loading";
-import Error from "src/common/components/Error";
+import Loading from "src/components/Loading/Loading";
+import Error from "src/components/Error/Error";
 
 class LoginLayout extends React.Component {
     constructor(props) {
