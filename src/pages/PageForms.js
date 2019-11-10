@@ -4,6 +4,9 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Form from "../forms/Form";
 import Page from "../components/Page";
+import {sections_get} from "../constants/sections";
+
+const section = sections_get("forms");
 
 class PageForms extends Component {
     constructor(props) {
@@ -13,7 +16,11 @@ class PageForms extends Component {
 
     render() {
         return (
-            <Page className="container login-container" title={"Forms examples"}>
+            <Page
+                className="container login-container"
+                title={section.title}
+                section={section.code}
+            >
                 <h1>Forms examples</h1>
                 <pre>src/pages/PageForms.js</pre>
                 {this.renderForm1()}

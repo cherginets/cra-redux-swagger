@@ -3,6 +3,9 @@ import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
 import {bindActionCreators} from 'redux'
 import Page from "../components/Page";
+import {sections_get} from "../constants/sections";
+
+const section = sections_get("home");
 
 class PageHome extends Component {
     constructor(props) {
@@ -14,7 +17,11 @@ class PageHome extends Component {
 
     render() {
         return (
-            <Page className={"container"} title={"Home"}>
+            <Page
+                className={"container"}
+                title={section.title}
+                section={section.code}
+            >
                 <h1>Home page</h1>
                 <p>some info
                     <br/>

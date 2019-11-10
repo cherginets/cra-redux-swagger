@@ -1,8 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Helmet} from 'react-helmet';
+import {bindActionCreators} from "redux"
+import {connect} from 'react-redux'
+import {GLOBAL_SET_STATE} from "../modules/global";
 
 class Page extends React.Component {
+    componentDidMount() {
+        console.log(this.props.section)
+        this.props.set_section(this.props.section);
+    }
+
     render() {
         const {children, title, className} = this.props;
         let classNames = [];
@@ -28,4 +36,15 @@ Page.propTypes = {
     section: PropTypes.string,
 };
 
-export default Page;
+export const mapStateToProps = (state, ownProps) => ({
+});
+
+export const mapDispatchToProps = dispatch => bindActionCreators({
+    set_section: (section) => dispatch({type: GLOBAL_SET_STATE, state: {section}}),
+}, dispatch);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Page)
+

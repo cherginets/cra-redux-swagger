@@ -12,9 +12,9 @@ import ModalManager from "src/components/Modal/ModalManager";
 class InitLayout extends React.Component {
     render() {
         return <AuthService>
-            <Header />
+            <Header/>
             <ErrorBoundary>
-            {this.props.children}
+                {this.props.children}
             </ErrorBoundary>
 
             <NotificationContainer/>
@@ -24,10 +24,7 @@ class InitLayout extends React.Component {
 }
 
 
-
-
-export const mapStateToProps = (state, ownProps) => ({
-});
+export const mapStateToProps = (state, ownProps) => ({});
 
 export default connect(
     mapStateToProps,

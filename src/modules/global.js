@@ -1,7 +1,8 @@
 export const GLOBAL_SET_STATE = 'GLOBAL_SET_STATE';
 
 const initialState = {
-   authorized: true,
+    authorized: true,
+    section: false,
 };
 
 export const global = (state = initialState, action) => {

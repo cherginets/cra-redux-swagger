@@ -28,8 +28,8 @@ class PageLogin extends Component {
                 <Form name={"test"} className={"mt-2"} onValidSubmit={this.login}>
                     <Form.Fields>
                         {[
-                            {name: "email", label: "Email", placeholder: "name@example.com"},
-                            {name: "password", label: "Password", placeholder: "********"},
+                            {type: "email", name: "email", label: "Email", placeholder: "name@example.com", value: "name@example.com", required: true},
+                            {name: "password", label: "Password", placeholder: "********", required: true},
                         ]}
                     </Form.Fields>
                     <button className="btn btn-primary">Login</button>

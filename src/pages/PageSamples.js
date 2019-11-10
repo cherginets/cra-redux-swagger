@@ -6,6 +6,9 @@ import Page from "../components/Page";
 import {n_error, n_info, n_success, n_warning} from "../actions/NotificationActions";
 import Modal from "../components/Modal/Modal";
 import {m_alert, m_confirm} from "../actions/ModalActions";
+import {sections_get} from "../constants/sections";
+
+const section = sections_get("samples");
 
 class PageSamples extends Component {
     constructor(props) {
@@ -15,7 +18,7 @@ class PageSamples extends Component {
 
     render() {
         return (
-            <Page className="container" title={"Samples"}>
+            <Page className="container" title={section.title} section={section.code}>
                 <h1>Samples</h1>
                 <pre>src/pages/PageSamples.js</pre>
                 {this.renderModals()}

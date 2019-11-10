@@ -4,6 +4,9 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Page from "../components/Page";
 import Table from "../components/Table/Table";
+import {sections_get} from "../constants/sections";
+
+const section = sections_get("tables");
 
 class PageTables extends Component {
     constructor(props) {
@@ -12,8 +15,9 @@ class PageTables extends Component {
     }
 
     render() {
+
         return (
-            <Page className="container" title={"Tables examples"}>
+            <Page className="container" title={section.title} section={section.code}>
                 <h1>Forms examples</h1>
                 <pre>src/pages/PageTables.js</pre>
 
