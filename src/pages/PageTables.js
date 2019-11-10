@@ -3,7 +3,6 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Page from "../components/Page";
-import Table from "../components/Table/Table";
 import {sections_get} from "../constants/sections";
 
 const section = sections_get("tables");

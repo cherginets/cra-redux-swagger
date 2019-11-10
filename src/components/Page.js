@@ -7,7 +7,6 @@ import {GLOBAL_SET_STATE} from "../modules/global";
 
 class Page extends React.Component {
     componentDidMount() {
-        console.log(this.props.section)
         this.props.set_section(this.props.section);
     }
 
