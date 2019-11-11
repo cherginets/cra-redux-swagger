@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Helper from "src/common/Helper";
 import "./Table.scss";
+import Pager from "../Pager/Pager";
 
 const columnDefaults = {
     sortable: true,
@@ -28,6 +29,7 @@ class Table extends React.Component {
 
         this.renderHead = this.renderHead.bind(this);
         this.renderBody = this.renderBody.bind(this);
+        this.renderPagination = this.renderPagination.bind(this);
     }
     getInitState(props = this.props) {
         return {
@@ -43,7 +45,10 @@ class Table extends React.Component {
 
             dragFrom: -1,
             dragOver: -1,
-            dragOverPrev: -1
+            dragOverPrev: -1,
+
+            pageActive: props.pageActive || 1,
+            pageSize: props.pageSize,
         };
     }
     getColumns(columns) {
@@ -60,6 +65,7 @@ class Table extends React.Component {
     }
     componentDidUpdate(prevProps) {
         if(prevProps.reload !== this.props.reload) {
+
             this.setState(this.getInitState())
         }
     }
@@ -79,7 +85,8 @@ class Table extends React.Component {
 
         this.setState({
             sortCol: accessor,
-            sortDesc: desc
+            sortDesc: desc,
+            pageActive: 1,
         });
 
         if(this.props.onSort) this.props.onSort(accessor, desc);
@@ -175,10 +182,13 @@ class Table extends React.Component {
             </div>;
         }
 
-        return <table className={"table table-striped"} >
-            {this.renderHead()}
-            {this.renderBody()}
-        </table>;
+        return <>
+            <table className={"table table-striped"}>
+                {this.renderHead()}
+                {this.renderBody()}
+            </table>
+            {this.renderPagination()}
+        </>;
     }
     renderHead() {
         const {columns, sortCol, sortDesc} = this.state,
@@ -219,8 +229,12 @@ class Table extends React.Component {
         </thead>
     }
     renderBody() {
-        let {selected, data} = this.state,
+        let {selected, data, pageSize, pageActive} = this.state,
             {columnAccessorId} = this.props;
+
+        if(pageSize) {
+            data = Helper.copy_obj(data).splice((pageActive - 1) * pageSize, pageSize);
+        }
 
         return <tbody>
         {data.map((row, index) => {
@@ -281,6 +295,20 @@ class Table extends React.Component {
         })}
         </tbody>
     }
+    renderPagination() {
+        const {data, pageActive} = this.state,
+            {pageSize} = this.props;
+
+        if(!pageSize) return  false;
+
+        return <Pager
+            offset={pageSize * pageActive - pageSize}
+            limit={pageSize}
+            total={data.length}
+            onNext={(offset, limit) => {this.setState({pageActive: offset / pageSize + 1})}}
+            onPrev={(offset, limit) => {this.setState({pageActive: offset / pageSize + 1})}}
+        />;
+    }
 }
 
 Table.defaultProps = {
@@ -295,15 +323,6 @@ Table.defaultProps = {
     onSelectAll: (selected, selectedRows) => {},
 
     allowUnsorted: true,
-
-    // Костыльный проброс пропсов в Pager
-    pager: true,
-    offset: 0,
-    limit: 0,
-    total: 0,
-    onPrev: ()=>{},
-    onNext: ()=>{},
-    onMove: () => {},
 
     reload: 0,
 };
@@ -361,13 +380,8 @@ Table.propTypes = {
     // Если вернёт НЕ Promise, то строки переместятся моментально
     onMove: PropTypes.func,
 
-    // pager: PropTypes.bool,
-    // Костыльный проброс пропсов в Pager
-    // offset: PropTypes.number.isRequired,
-    // limit: PropTypes.number.isRequired,
-    // total: PropTypes.number.isRequired,
-    // onPrev: PropTypes.func.isRequired,
-    // onNext: PropTypes.func.isRequired,
+    pageSize: PropTypes.number, // Если не задано - пагинация не производится
+    pageActive: PropTypes.number, // Номер активной страницы (начинается с 1)
 
     reload: PropTypes.number, // Передать (+ new Date()) что бы ресетнуть таблицу
 };

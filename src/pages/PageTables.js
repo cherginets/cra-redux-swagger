@@ -54,10 +54,10 @@ class PageTables extends Component {
                 <pre>src/pages/PageTables.js</pre>
                 <pre>>> todo: pagination</pre>
 
+                {this.renderTablePagination()}
                 {this.renderTableSelecting()}
                 {this.renderTableMove()}
                 {this.renderTableNoData()}
-                {this.renderTablePagination()}
             </Page>
         );
     }
@@ -109,7 +109,18 @@ class PageTables extends Component {
             />
         </>;
     };
-    renderTablePagination = () => {};
+    renderTablePagination = () => {
+        return <>
+            <h2>Table with drag & drop</h2>
+            <Table
+                data={this.state.data}
+                columns={this.state.columns}
+
+                pageSize={5}
+            />
+        </>;
+
+    };
 }
 
 const mapStateToProps = (state, ownProps) => ({});

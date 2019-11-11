@@ -7,23 +7,22 @@ import {n_error, n_info, n_success, n_warning} from "../actions/NotificationActi
 import Modal from "../components/Modal/Modal";
 import {m_alert, m_confirm} from "../actions/ModalActions";
 import {sections_get} from "../constants/sections";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const section = sections_get("samples");
 
 class PageSamples extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
+    state = {};
 
     render() {
         return (
             <Page className="container" title={section.title} section={section.code}>
                 <h1>Samples</h1>
                 <pre>src/pages/PageSamples.js</pre>
-                <pre>>> todo: icons font awesome</pre>
                 {this.renderModals()}
                 {this.renderNotifications()}
+                {this.renderIcons()}
             </Page>
         );
     }
@@ -77,6 +76,25 @@ class PageSamples extends Component {
             <button className={"btn mr-1 btn-info"} onClick={() => {n_info("info", "title")}}>info</button>
             <button className={"btn mr-1 btn-light"} onClick={() => {n_warning("warning", "title")}}>warning</button>
             <button className={"btn mr-1 btn-warning"} onClick={() => {n_error("error", "title")}}>error</button>
+        </div>
+    };
+    renderIcons = () => {
+        if(!(library && library.definitions && library.definitions.fas)) return "undefined error, check method renderIcons()";
+
+        const icons = Object.keys(library.definitions.fas);
+        return <div style={{marginTop: 15}}>
+            <h2>Icons (FA)</h2>
+            <p>Списки иконок <a href={"https://fontawesome.ru/all-icons/"} target={"_blank"}>здесь</a> и <a href={"https://fontawesome.com/icons?d=gallery"} target={"_blank"}>здесь</a></p>
+            <pre>Можно подключить ещё в src/fa.js</pre>
+
+            <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap"}}>
+                {icons.map((icon, i) => {
+                    return <div key={i} style={{width: "20%", display: "flex"}}>
+                        <FontAwesomeIcon icon={icon} size={"lg"} style={{marginRight: 5}}/> {icon}
+                    </div>;
+                })}
+            </div>
+
         </div>
     };
 }
