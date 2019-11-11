@@ -52,7 +52,6 @@ class PageTables extends Component {
                 <h1>Tables examples</h1>
 
                 <pre>src/pages/PageTables.js</pre>
-                <pre>>> todo: pagination</pre>
 
                 {this.renderTablePagination()}
                 {this.renderTableSelecting()}
@@ -111,7 +110,7 @@ class PageTables extends Component {
     };
     renderTablePagination = () => {
         return <>
-            <h2>Table with drag & drop</h2>
+            <h2>Table with pagination</h2>
             <Table
                 data={this.state.data}
                 columns={this.state.columns}
