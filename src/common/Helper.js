@@ -4,6 +4,7 @@ export default class Helper {
         return val(...args);
     };
     static is_object = (item) => !Array.isArray(item) && typeof item === 'object' && item !== null;
+    static is_promise = (item) => item && typeof item.then === 'function';
     static objects_merge_compact = (obj1 = {}, obj2 = {}) => {
         let result = {};
         for(let i in obj1) {
