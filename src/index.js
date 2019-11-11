@@ -1,5 +1,6 @@
 import {render} from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
+import "./fa.js";
 
 import Routes from "./routes";
 import 'bootstrap/dist/css/bootstrap.min.css';

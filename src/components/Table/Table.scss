@@ -5,44 +5,30 @@
   padding-top: 20px;
   //padding-bottom: 20px;
   z-index: 0;
-  &__content  {
-    width: 100%;
-    border: solid 0;
-    border-collapse: collapse;
-    // white-space: nowrap;
-    overflow: hidden;
-    overflow: auto;
-    text-overflow: ellipsis;
 
-    thead {
-      th {
-        position: sticky;
-        top: -20px;
-        z-index: 2;
-        background-color: var(--color-window);
-      }
-      td {
-        position: sticky;
-        top: 26px;
-        z-index: 1;
-        background-color: var(--color-window);
-      }
-    }
+  &-header {
+    &__cell {}
+    &__name {}
+
+    &_sort &__cell { cursor: pointer; }
+    &_sort &__name { text-decoration: underline; }
   }
 
-  &__row {
-    transition-property: opacity, border-top-width, border-bottom-width;
-    transition-duration: 250ms;
-    transition-timing-function: ease-in-out;
-    border: solid 0px gray;
-    &_on-drag {
-      opacity: .25;
-    }
-    &_drop-before {
-      border-top-width: 14px;
-    }
-    &_drop-after {
-      border-bottom-width: 14px;
+  &-body {
+    &-row {
+      transition-property: opacity, border-top-width, border-bottom-width;
+      transition-duration: 250ms;
+      transition-timing-function: ease-in-out;
+      border: solid 0px gray;
+      &_on-drag {
+        opacity: .25;
+      }
+      &_drop-before {
+        border-top-width: 14px;
+      }
+      &_drop-after {
+        border-bottom-width: 14px;
+      }
     }
   }
 

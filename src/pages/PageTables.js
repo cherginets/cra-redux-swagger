@@ -13,7 +13,7 @@ class PageTables extends Component {
         super(props);
         this.state = {
             columns: [
-                {Header: "ID", accessor: "id"},
+                {Header: "ID", accessor: "id", styleTh: {width: 70}},
                 {Header: "Name", accessor: "name"},
                 {Header: "Phone", accessor: "phone"},
             ],
@@ -47,17 +47,17 @@ class PageTables extends Component {
     }
 
     render() {
-        console.log('process', process);
         return (
             <Page className="container" title={section.title} section={section.code}>
                 <h1>Tables examples</h1>
+
                 <pre>src/pages/PageTables.js</pre>
-                <pre>>> todo: sorting</pre>
                 <pre>>> todo: pagination</pre>
 
                 {this.renderTableSelecting()}
                 {this.renderTableMove()}
                 {this.renderTableNoData()}
+                {this.renderTablePagination()}
             </Page>
         );
     }
@@ -72,6 +72,8 @@ class PageTables extends Component {
                 columnDefaults={{
                     sortable: false,
                 }}
+
+                initialSort={{column: "id", desc: false}}
 
                 canSelect={true}
                 canSelectAll={true}
@@ -98,7 +100,7 @@ class PageTables extends Component {
             <h2>Table with drag & drop</h2>
             <Table
                 data={this.state.data_5}
-                columns={this.state.columns}
+                columns={this.state.columns.map(column => ({...column, sortable: false}))}
 
                 canMove={true}
                 onMove={(...args) => {
@@ -106,7 +108,8 @@ class PageTables extends Component {
                 }}
             />
         </>;
-    }
+    };
+    renderTablePagination = () => {};
 }
 
 const mapStateToProps = (state, ownProps) => ({});

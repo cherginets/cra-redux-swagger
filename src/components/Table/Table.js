@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import Helper from "src/common/Helper";
 import "./Table.scss";
 
 const columnDefaults = {
-    sortable: false,
+    sortable: true,
 };
 
 class Table extends React.Component {
@@ -17,6 +19,7 @@ class Table extends React.Component {
         this.getInitState = this.getInitState.bind(this);
         this.getColumns = this.getColumns.bind(this);
 
+        this.sortData = this.sortData.bind(this);
         this.doSort = this.doSort.bind(this);
 
         this.onSelect = this.onSelect.bind(this);
@@ -35,15 +38,25 @@ class Table extends React.Component {
             selectedRows: [],
             selectedAll: false,
 
-            sortCol: this.props.initialSort || "",
-            sortDesc: false,
+            sortCol: this.props.initialSort ? this.props.initialSort.column : false,
+            sortDesc: this.props.initialSort ? this.props.initialSort.desc : true,
+
             dragFrom: -1,
             dragOver: -1,
             dragOverPrev: -1
         };
     }
     getColumns(columns) {
+        columns = columns.map(column => {
+            column = Helper.objects_merge(columnDefaults, column);
+            return column;
+        });
         return columns;
+    }
+    componentDidMount() {
+        if(this.props.initialSort) {
+            this.doSort(this.props.initialSort.column, this.props.initialSort.desc);
+        }
     }
     componentDidUpdate(prevProps) {
         if(prevProps.reload !== this.props.reload) {
@@ -68,18 +81,33 @@ class Table extends React.Component {
             sortCol: accessor,
             sortDesc: desc
         });
-        this.props.onSort(accessor, desc);
+
+        if(this.props.onSort) this.props.onSort(accessor, desc);
+        else this.sortData();
+    }
+    sortData() {
+        const {sortCol, sortDesc} = this.state;
+
+        let data = this.state.data;
+
+        data = data.sort((a, b) => {
+            let result = 0;
+            if(a[sortCol] > b[sortCol]) result = 1;
+            else if(a[sortCol] < b[sortCol]) result = -1;
+            return sortDesc ? result : -1 * result;
+        });
+        this.setState({data});
     }
 
     rowClass(row, index) {
-        let resultClass = "table__row";
+        let resultClass = "table-body-row";
         if (this.state.dragFrom !== -1) {
-            if ((index === this.state.dragFrom)) resultClass += " table__row_on-drag";
+            if ((index === this.state.dragFrom)) resultClass += " table-body-row_on-drag";
             if ((index !== this.state.dragFrom) && (index === this.state.dragOver)) {
                 if (index < this.state.dragFrom)
-                    resultClass += " table__row_drop-before";
+                    resultClass += " table-body-row_drop-before";
                 else
-                    resultClass += " table__row_drop-after";
+                    resultClass += " table-body-row_drop-after";
             }
         }
         return resultClass;
@@ -153,13 +181,13 @@ class Table extends React.Component {
         </table>;
     }
     renderHead() {
-        const {columns} = this.state,
+        const {columns, sortCol, sortDesc} = this.state,
             {canSelect, canSelectAll} = this.props;
 
         return <thead>
         <tr>
             {/* Столбец выделения строк */}
-            {canSelect && <th className="table__data table__data_compact">
+            {canSelect && <th className="table__data" style={{width: 40}}>
                 {canSelect && canSelectAll &&
                 <input
                     type={"checkbox"}
@@ -168,15 +196,21 @@ class Table extends React.Component {
                 />}
             </th>}
             {columns.map((column, key) => {
-                let sortable = !!column.sortable;
-
-                let classNames = ["table__header"];
+                let classNames = ["table-header"];
                 if(column.classTh) classNames.push(column.classTh);
+                if(column.sortable) classNames.push("table-header_sort");
 
-                return <th key={key} className={classNames.join(" ")}>
-                    <div className="table__col">
-                        <div className={"table__colname"}>
+                return <th key={key} className={classNames.join(" ")} style={column.styleTh || {}}>
+                    <div className="table-header__cell">
+                        <div className={"table-header__name"} onClick={() => column.sortable && this.doSort(column.accessor)}>
                             {column.Header}
+                            {column.sortable && (() => {
+                                if(!sortCol) return false;
+                                if(sortCol === column.accessor) {
+                                    return !sortDesc ? <FontAwesomeIcon icon={"sort-up"} style={{marginLeft: 5}}/> :
+                                        <FontAwesomeIcon icon={"sort-down"} style={{marginLeft: 5}}/>;
+                                }
+                            })()}
                         </div>
                     </div>
                 </th>
@@ -237,7 +271,7 @@ class Table extends React.Component {
                                     this.setState({dragFrom: -1, dragOver: -1, dragOverPrev: -1, dragGroup: false})
                                 }}
                             >
-                                X
+                                <FontAwesomeIcon style={{cursor: "pointer", color: "gray"}} icon={"arrows-alt"} size={"lg"} />
                             </div>
                             }
                         </div>
@@ -260,7 +294,6 @@ Table.defaultProps = {
     onSelect: (row, selected, selectedRows) => {},
     onSelectAll: (selected, selectedRows) => {},
 
-    onSort: (col, desc) => {},
     allowUnsorted: true,
 
     // Костыльный проброс пропсов в Pager
@@ -278,6 +311,8 @@ Table.defaultProps = {
 const columnModel = PropTypes.shape({
     classTh: PropTypes.string,
     classTd: PropTypes.string,
+    styleTh: PropTypes.object,
+    styleTd: PropTypes.object,
 
     // Описывает что отображать в заголовке колонки. Если не задано - ничего не отобразится.
     // (иконка сортировки рисуется отдельно от Header и не может быть отменена в этом поле)
@@ -305,8 +340,13 @@ Table.propTypes = {
 
     // Вызывается при нажатии на заголовок. В аргументах передаются код колонки и направление сортировки.
     // пример: onSort: (column, direction) => {..some code}
+    // ВАЖНО: Если onSort ЗАДАНА, то сортировка будет производиться в JS
+    // todo: если потребуется вызывать callback, то стоит создать пропс onSortBefore и вызывать его
     onSort: PropTypes.func,
-    initialSort: PropTypes.string,
+    initialSort: PropTypes.shape({
+        column: PropTypes.string,
+        desc: PropTypes.bool,
+    }),
     allowUnsorted: PropTypes.bool, // Если true, то при сортировке будет промежуточное состояние null:  asc -> desc -> null
 
     canSearch: PropTypes.bool, // Есть ли элемент с лупой над таблицей. Можно ли искать по таблице. По умолчанию - false
