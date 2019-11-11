@@ -149,6 +149,8 @@ export default class Helper {
                         [key]: Helper.copy_obj(o[key]),
                     }), {})
             );
+        } else if(Array.isArray(o)) {
+            return o.map(item => Helper.copy_obj(item));
         }
         return o;
     }

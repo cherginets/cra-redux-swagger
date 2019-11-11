@@ -21,6 +21,7 @@ class PageSamples extends Component {
             <Page className="container" title={section.title} section={section.code}>
                 <h1>Samples</h1>
                 <pre>src/pages/PageSamples.js</pre>
+                <pre>>> todo: icons font awesome</pre>
                 {this.renderModals()}
                 {this.renderNotifications()}
             </Page>
