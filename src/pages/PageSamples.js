@@ -87,9 +87,9 @@ class PageSamples extends Component {
             <p>Списки иконок <a href={"https://fontawesome.ru/all-icons/"} target={"_blank"}>здесь</a> и <a href={"https://fontawesome.com/icons?d=gallery"} target={"_blank"}>здесь</a></p>
             <pre>Можно подключить ещё в src/fa.js</pre>
 
-            <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap"}}>
+            <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap", marginBottom: 40}}>
                 {icons.map((icon, i) => {
-                    return <div key={i} style={{width: "20%", display: "flex"}}>
+                    return <div key={i} style={{width: "20%", display: "flex", marginBottom: 20}}>
                         <FontAwesomeIcon icon={icon} size={"lg"} style={{marginRight: 5}}/> {icon}
                     </div>;
                 })}
