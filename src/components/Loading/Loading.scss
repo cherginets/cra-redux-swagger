@@ -1,10 +1,15 @@
 .loading {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(255,255,255,0.8);
+
+  &_block { position: absolute; }
+  &_window { position: fixed; }
+  &_block, &_window {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
 }

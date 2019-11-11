@@ -7,22 +7,30 @@ import "./Loading.scss";
  */
 class Loading extends React.Component {
     render() {
-        const {minHeight, text} = this.props;
+        const {minHeight, place, text} = this.props;
 
-        return <div className={["loading"].join(" ")} style={{minHeight}}>
+        let classNames = ["loading"];
+        if(place === 'block') classNames.push("loading_block");
+        if(place === 'window') classNames.push("loading_window");
+
+        return <div className={classNames.join(" ")} style={{minHeight}}>
             {text}
         </div>;
     }
 }
 
 Loading.defaultProps = {
-    minHeight: 200,
     text: "Loading...",
+    place: "as_is",
 };
 
 Loading.propTypes = {
     minHeight: PropTypes.number,
     text: PropTypes.string,
+    // as_is - (по умолчанию) отображается как компонент среди верстки
+    // block - абсолютное позиционирование на странице
+    // window - отображается на всю страницу
+    place: PropTypes.oneOf(["as_is", "block", "window"]),
 };
 
 export default Loading;

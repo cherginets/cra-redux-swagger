@@ -9,23 +9,53 @@ import {m_alert, m_confirm} from "../actions/ModalActions";
 import {sections_get} from "../constants/sections";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Loading from "../components/Loading/Loading";
 
 const section = sections_get("samples");
 
 class PageSamples extends Component {
-    state = {};
+    state = {
+        loading: false,
+        loading_block: false,
+        loading_window: false,
+    };
 
     render() {
         return (
             <Page className="container" title={section.title} section={section.code}>
                 <h1>Samples</h1>
                 <pre>src/pages/PageSamples.js</pre>
+                {this.renderLoading()}
                 {this.renderModals()}
                 {this.renderNotifications()}
                 {this.renderIcons()}
             </Page>
         );
     }
+    renderLoading = () => {
+        return <div className={"pb-2"} style={{position: "relative"}}>
+            <h2>Loading sample</h2>
+            <button className={"btn btn-light"} onClick={() => {
+                this.setState({loading: true}, () => {
+                    setTimeout(() => this.setState({loading: false}), 1000);
+                })
+            }}>as_is loading</button>
+            <button className={"btn btn-primary ml-2"} onClick={() => {
+                this.setState({loading_block: true}, () => {
+                    setTimeout(() => this.setState({loading_block: false}), 1000);
+                })
+            }}>block loading</button>
+            <button className={"btn btn-danger ml-2"} onClick={() => {
+                this.setState({loading_window: true}, () => {
+                    setTimeout(() => this.setState({loading_window: false}), 1000);
+                })
+            }}>window loading</button>
+            <br/>
+            {this.state.loading && <Loading />}
+            {this.state.loading_block && <Loading place={"block"}/>}
+            {this.state.loading_window && <Loading place={"window"}/>}
+        </div>
+    };
     renderModals = () => {
         return <div className={"pb-2"}>
             <h2>Modals</h2>

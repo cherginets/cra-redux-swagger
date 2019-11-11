@@ -4,6 +4,7 @@ import {Helmet} from 'react-helmet';
 import {bindActionCreators} from "redux"
 import {connect} from 'react-redux'
 import {GLOBAL_SET_STATE} from "../modules/global";
+import Loading from "./Loading/Loading";
 
 class Page extends React.Component {
     componentDidMount() {
@@ -11,9 +12,11 @@ class Page extends React.Component {
     }
 
     render() {
-        const {children, title, className} = this.props;
-        let classNames = [];
+        const {children, title, className, loading} = this.props;
 
+        if (loading) return <Loading />;
+
+        let classNames = [];
         if (className) classNames.push(className);
 
         return <div className={classNames.join(" ")}>
@@ -33,6 +36,7 @@ Page.propTypes = {
     className: PropTypes.string,
     title: PropTypes.string.isRequired,
     section: PropTypes.string,
+    loading: PropTypes.bool,
 };
 
 export const mapStateToProps = (state, ownProps) => ({
