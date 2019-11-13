@@ -35,8 +35,8 @@ class AuthService extends React.Component {
     render() {
         const {loading, error, authorized} = this.state;
 
-        if (loading) return <Loading/>;
-        if (error) return <Error/>;
+        if (loading) return <Loading place={"window"} text={"Authorization..."}/>;
+        if (error) return <Error text={error}/>;
         if (!authorized) return <Redirect to={this.props.login_page_url}/>;
 
         return this.props.children;

@@ -1,0 +1,57 @@
+openapi: 3.0.1
+info:
+  title: Hello World
+  description: My API
+  contact:
+    name: Fred
+    url: http://gigantic-server.com
+    email: Fred@gigagantic-server.com
+  license:
+    name: Apache 2.0
+    url: http://foo.bar
+  version: "0.0"
+paths:
+  /hello/prod/{num}:
+    get:
+      tags:
+        - greeting
+      summary: Greets a person
+      description: A friendly greeting is returned
+      operationId: product
+      parameters:
+        - name: num
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        400:
+          description: Invalid Name Supplied
+        404:
+          description: Person not found
+  /hello/prod/new:
+    get:
+      operationId: createProduct
+      parameters: []
+      responses:
+        default:
+          description: createProduct default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+components:
+  schemas:
+    Product:
+      required:
+        - name
+        - num
+      type: object
+      properties:
+        name:
+          type: string
+        num:
+          type: integer
+          format: int32
+      description: Product description

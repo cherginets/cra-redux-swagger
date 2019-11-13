@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import {bindActionCreators} from 'redux'
 import Page from "../components/Page";
 import {GLOBAL_SET_STATE} from "../modules/global";
-import AuthService from "../services/Auth/AuthService";
+import AuthService from "../services/AuthService";
 import Form from "../forms/Form";
 
 class PageLogin extends Component {

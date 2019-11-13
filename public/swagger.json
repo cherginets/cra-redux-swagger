@@ -1,0 +1,50 @@
+{
+  "schemes": [],
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a configure service API",
+    "title": "Test API",
+    "termsOfService": "http://swagger.io/terms/",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0"
+  },
+  "host": "1.1.1.1:3334",
+  "basePath": "/",
+  "paths": {
+    "/about": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "about"
+        ],
+        "summary": "Get information about installation",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/api.AboutResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/api.ErrorMessage"
+            }
+          }
+        }
+      }
+    }
+  }
+}
