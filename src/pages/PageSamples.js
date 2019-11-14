@@ -10,6 +10,9 @@ import {sections_get} from "../constants/sections";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Loading from "../components/Loading/Loading";
+import ContextMenu from "../components/ContextMenu/ContextMenu";
+import ContextMenuSelect from "../components/ContextMenu/ContextMenuSelect";
+import Tooltip from "../components/Tooltip/Tooltip";
 
 const section = sections_get("samples");
 
@@ -25,7 +28,7 @@ class PageSamples extends Component {
             <Page className="container" title={section.title} section={section.code}>
                 <h1>Samples</h1>
                 <pre>src/pages/PageSamples.js</pre>
-                <pre> >> todo: context menu & context menu select </pre>
+                {this.renderTooltips()}
                 {this.renderLoading()}
                 {this.renderModals()}
                 {this.renderNotifications()}
@@ -33,6 +36,43 @@ class PageSamples extends Component {
             </Page>
         );
     }
+    renderTooltips = () => {
+        return <div className={'d-flex flex-column'}>
+            <ContextMenu options={[
+                {label: 1, value: 1},
+                {label: 2, value: 2},
+            ]} onClick={() => {
+            }}>
+                <a href={"/"} onClick={(e) => e.preventDefault()}>
+                    контекстное меню
+                </a>
+            </ContextMenu>
+            <ContextMenuSelect options={[
+                {label: 1, value: 1},
+                {label: 2, value: 2},
+            ]} onClick={() => {
+            }}>
+                <a href={"/"} onClick={(e) => e.preventDefault()}>контекстное меню с выбором элементов</a>
+            </ContextMenuSelect>
+            <Tooltip content={"content"}>
+                <a href={"/"} onClick={(e) => e.preventDefault()}>тултип</a>
+            </Tooltip>
+            <Tooltip content={(tooltip) => <div className={"p-5"}>
+                <button className={"btn btn-primary"} onClick={tooltip.close}>закрыть тултип</button>
+            </div>}>
+                <a href={"/"} onClick={(e) => e.preventDefault()}>тултип закрывающийся кнопкой внутри</a>
+            </Tooltip>
+            <ContextMenu options={[
+                {label: 1, value: 1},
+                {label: 2, value: 2},
+            ]} onClick={() => {
+            }}>
+                <a className={"ml-auto"} href={"/"} onClick={(e) => e.preventDefault()}>
+                    контекстное меню (откроется влево)
+                </a>
+            </ContextMenu>
+        </div>
+    };
     renderLoading = () => {
         return <div className={"pb-2"} style={{position: "relative"}}>
             <h2>Loading sample</h2>

@@ -1,0 +1,29 @@
+.crs-tooltip{
+  position: fixed;
+  background-color: #fff;
+  border: 2px solid rgba(0,0,0,0.03);
+  border-radius: 7px;
+  min-width: 200px;
+  z-index: 14;
+}
+
+.contextMenu{
+
+  &__item{
+    padding: 6px 10px;
+    cursor: pointer;
+    &:hover{
+      background-color: rgba(0,0,0,0.05);
+    }
+  }
+  &__itemSelected{
+    padding-left: 18px;
+    position: relative;
+    &:before{
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+}
