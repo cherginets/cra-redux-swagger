@@ -5,9 +5,9 @@ import Tooltip from "../Tooltip/Tooltip";
 
 class ContextMenu extends Component {
     render() {
-        let {options, onClick} = this.props;
+        let {options, onClick, ...otherProps} = this.props;
 
-        return <Tooltip content={<div className='contextMenu'>
+        return <Tooltip content={<div className='contextMenu' {...otherProps}>
             <div className='contextMenu__list'>
                 {options.map((row, i) => <div
                         key={i}

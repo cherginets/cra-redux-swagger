@@ -71,6 +71,11 @@ class PageSamples extends Component {
                     контекстное меню (откроется влево)
                 </a>
             </ContextMenu>
+            <Tooltip content={"some content"} closeOnOutClick={false}>
+                <a className={"ml-auto"} href={"/"} onClick={(e) => e.preventDefault()}>
+                    тултипчик (не закрывается при клике во вне)
+                </a>
+            </Tooltip>
         </div>
     };
     renderLoading = () => {

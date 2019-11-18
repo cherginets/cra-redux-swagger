@@ -1,0 +1,11 @@
+.crs-tooltip {
+  //position: relative;
+  &__close {
+    position: absolute;
+    right: 0;
+    left: auto;
+    top: 0;
+    bottom: auto;
+    cursor: pointer;
+  }
+}

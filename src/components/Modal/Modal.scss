@@ -1,4 +1,5 @@
 .fs-modal {
+  z-index: 200;
   &__overlay {
     display: flex;
     align-items: center;
@@ -9,6 +10,7 @@
     right: 0;
     top: 0;
     background: rgba(255, 255, 255, 0.8);
+    z-index: 201;
   }
   &__window {
     background: white;

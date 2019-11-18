@@ -31,7 +31,7 @@ export default class ContextMenuSelect extends Component {
     }
 
     render() {
-        const {options, selected} = this.props;
+        const {options, selected, ...otherProps} = this.props;
         const selectedOptions = options.map(({label, value}) => {
             let newLabel = label;
             if(selected.includes(value)) {
@@ -43,7 +43,7 @@ export default class ContextMenuSelect extends Component {
         });
 
         return <ContextMenu
-            {...this.props}
+            {...otherProps}
             options={selectedOptions}
             onClick={this.onSelect}
         />

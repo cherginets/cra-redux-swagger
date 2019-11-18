@@ -1,5 +1,9 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import "./Tooltip.scss"
+
+window.tooltip_last_zindex = 0;
 
 class Tooltip extends Component {
 
@@ -7,25 +11,26 @@ class Tooltip extends Component {
         show: false,
         clientX: 0,
         clientY: 0,
+        zindex: 100,
     };
 
     handleClickOutside = (e) => {
         if(this.refs.tooltip && !e.path.includes(this.refs.tooltip)) {
-            document.removeEventListener('click', this.handleClickOutside, false);
-            this.setState({show: false})
+            this.close();
         }
     };
     handleClick({clientX, clientY}) {
-        this.setState(({show}) => {
-            document.addEventListener('click', this.handleClickOutside, false);
-            return {
-                show: !show,
-                clientX, clientY,
-            }
-        })
+        if(this.state.show) this.close();
+        else this.setState({clientX, clientY}, this.open);
     }
+    open = () => {
+        window.tooltip_last_zindex = window.tooltip_last_zindex + 1;
+
+        if (this.props.closeOnOutClick) document.addEventListener('click', this.handleClickOutside, false);
+        this.setState({show: true, zindex: window.tooltip_last_zindex + this.state.zindex})
+    };
     close = () => {
-        document.removeEventListener('click', this.handleClickOutside, false);
+        if (this.props.closeOnOutClick) document.removeEventListener('click', this.handleClickOutside, false);
         this.setState({show: false})
     };
 
@@ -46,6 +51,7 @@ class Tooltip extends Component {
         );
 
         let style = {
+            zIndex: this.state.zindex,
             top: clientY,
             left: "auto",
             right: "auto",
@@ -57,6 +63,7 @@ class Tooltip extends Component {
         return <>
             {childrenWithProps}
             {show && <div className='crs-tooltip' ref='tooltip' style={style}>
+                {!this.props.closeOnOutClick && <FontAwesomeIcon className={"crs-tooltip__close"} icon={"times"} size={"lg"} onClick={this.close} /> }
                 {typeof content === 'function' ? content({close: this.close}) : content}
             </div>}
         </>
@@ -64,8 +71,13 @@ class Tooltip extends Component {
 
 }
 
+Tooltip.defaultProps = {
+    closeOnOutClick: true,
+};
+
 Tooltip.propTypes = {
     content: PropTypes.any,
+    closeOnOutClick: PropTypes.bool,
 };
 
 export default Tooltip;
