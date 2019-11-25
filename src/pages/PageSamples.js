@@ -13,6 +13,7 @@ import Loading from "../components/Loading/Loading";
 import ContextMenu from "../components/ContextMenu/ContextMenu";
 import ContextMenuSelect from "../components/ContextMenu/ContextMenuSelect";
 import Tooltip from "../components/Tooltip/Tooltip";
+import Tabs from "../components/Tabs/Tabs";
 
 const section = sections_get("samples");
 
@@ -21,6 +22,7 @@ class PageSamples extends Component {
         loading: false,
         loading_block: false,
         loading_window: false,
+        selected_tab: "2",
     };
 
     render() {
@@ -28,6 +30,7 @@ class PageSamples extends Component {
             <Page className="container" title={section.title} section={section.code}>
                 <h1>Samples</h1>
                 <pre>src/pages/PageSamples.js</pre>
+                {this.renderTabs()}
                 {this.renderTooltips()}
                 {this.renderLoading()}
                 {this.renderModals()}
@@ -35,6 +38,18 @@ class PageSamples extends Component {
                 {this.renderIcons()}
             </Page>
         );
+    }
+    renderTabs = () => {
+        return <Tabs>
+            <Tabs.Header>
+                <Tabs.Link code={"1"} active={this.state.selected_tab === '1'} onClick={(code) => this.setState({selected_tab: String(code)})}>1</Tabs.Link>
+                <Tabs.Link code={"2"} active={this.state.selected_tab === '2'} onClick={(code) => this.setState({selected_tab: String(code)})}>2</Tabs.Link>
+                <Tabs.Link code={"3"} active={this.state.selected_tab === '3'} onClick={(code) => this.setState({selected_tab: String(code)})}>3</Tabs.Link>
+            </Tabs.Header>
+            <Tabs.Body>
+                body
+            </Tabs.Body>
+        </Tabs>
     }
     renderTooltips = () => {
         return <div className={'d-flex flex-column'}>
