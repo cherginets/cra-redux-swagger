@@ -40,19 +40,23 @@ class PageSamples extends Component {
         );
     }
     renderTabs = () => {
-        return <Tabs>
+        return <div className={'d-flex flex-column'}>
+            <h2>Tabs</h2>
+            <Tabs>
             <Tabs.Header>
                 <Tabs.Link code={"1"} active={this.state.selected_tab === '1'} onClick={(code) => this.setState({selected_tab: String(code)})}>1</Tabs.Link>
                 <Tabs.Link code={"2"} active={this.state.selected_tab === '2'} onClick={(code) => this.setState({selected_tab: String(code)})}>2</Tabs.Link>
                 <Tabs.Link code={"3"} active={this.state.selected_tab === '3'} onClick={(code) => this.setState({selected_tab: String(code)})}>3</Tabs.Link>
             </Tabs.Header>
             <Tabs.Body>
-                body
+                body {this.state.selected_tab}
             </Tabs.Body>
         </Tabs>
+        </div>
     }
     renderTooltips = () => {
         return <div className={'d-flex flex-column'}>
+            <h2>Tooltips</h2>
             <ContextMenu options={[
                 {label: 1, value: 1},
                 {label: 2, value: 2},
